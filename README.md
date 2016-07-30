@@ -29,5 +29,6 @@ two groups named `db` and `postgres`. That's it.
 
 If your DigitalOcean account has droplets that weren't created under the dobro
 umbrella but are still tagged, you can set an environment variable
-`DOCTL_INVENTORY_NAMESPACE` to eg. `bro` (or whatever your dobro namespace is).
-This will only produce an inventory of droplets whose name starts with `bro-`.
+`DOCTL_INVENTORY_NAMESPACE` to eg. `bro` (or whatever your dobro namespace is)
+in order to target only those droplets. This will only produce an inventory of
+droplets whose name starts with `bro-`.
