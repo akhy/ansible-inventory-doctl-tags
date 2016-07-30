@@ -15,3 +15,19 @@ As with any other dynamic inventory script, just copy `doctl-tags.py` into your
 
 You'll need doctl authorised with a personal access token before running your
 playbooks (`doctl auth login`).
+
+
+## Groups
+
+Each droplet will be placed into groups named exactly as its tags.
+
+For example, if your droplet has tags `db` and `postgres`, it'll be placed into
+two groups named `db` and `postgres`. That's it.
+
+
+## Using with dobro
+
+If your DigitalOcean account has droplets that weren't created under the dobro
+umbrella but are still tagged, you can set an environment variable
+`DOCTL_INVENTORY_NAMESPACE` to eg. `bro` (or whatever your dobro namespace is).
+This will only produce an inventory of droplets whose name starts with `bro-`.
