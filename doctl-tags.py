@@ -28,7 +28,7 @@ droplets = json.loads(
 groups = {}
 ns = os.environ.get('DOCTL_INVENTORY_NAMESPACE')
 
-# ansible is expecting JSON input in the following format:
+# Ansible is expecting JSON input in the following format:
 # {
 #   "group": {
 #     "hosts": [
