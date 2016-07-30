@@ -25,7 +25,7 @@ For example, if your droplet has tags `db` and `postgres`, it'll be placed into
 two groups named `db` and `postgres`. That's it.
 
 
-## Using with dobro
+## Note on usage with dobro
 
 If your DigitalOcean account has droplets that weren't created under the dobro
 umbrella but are still tagged, you can set an environment variable
