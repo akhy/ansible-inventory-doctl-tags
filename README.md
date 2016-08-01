@@ -25,6 +25,13 @@ For example, if your droplet has tags `db` and `postgres`, it'll be placed into
 two groups named `db` and `postgres`. That's it.
 
 
+## Blacklist or whitelist droplets by tag
+
+You can specify a space-delimited list of tags to the
+`DOCTL_INVENTORY_IGNORE_TAGS` and/or `DOCTL_INVENTORY_ONLY_TAGS` environment
+variables respectively.
+
+
 ## Note on usage with dobro
 
 If your DigitalOcean account has droplets that weren't created under the dobro
