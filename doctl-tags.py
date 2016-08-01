@@ -34,7 +34,7 @@ ns = os.environ.get('DOCTL_INVENTORY_NAMESPACE')
 #     "hosts": [
 #       "123.234.56.78",
 #       ...
-#     ]
+#     ],
 #     "vars": {
 #       ... (we don't add vars)
 #     }
