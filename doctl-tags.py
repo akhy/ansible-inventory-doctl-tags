@@ -28,6 +28,12 @@ droplets = json.loads(
 groups = {}
 ns = os.environ.get('DOCTL_INVENTORY_NAMESPACE')
 
+# default to empty list because we iterate later
+ignore_tags = os.environ.get('DOCTL_INVENTORY_IGNORE_TAGS', [])
+only_tags = os.environ.get('DOCTL_INVENTORY_ONLY_TAGS', [])
+if ignore_tags: ignore_tags = ignore_tags.split()
+if only_tags: only_tags = only_tags.split()
+
 # Ansible is expecting JSON input in the following format:
 # {
 #   "group": {
@@ -47,6 +53,20 @@ for droplet in droplets:
     # start with '<NAMESPACE>-'
     if ns and not droplet['name'].startswith(ns + '-'):
         continue
+
+    # deal with tag black and whitelisting
+    skip = False
+    for tag in ignore_tags:
+        if tag in droplet['tags']:
+            skip = True
+            break
+    if skip: continue
+
+    for tag in only_tags:
+        if not (tag in droplet['tags']):
+            skip = True
+            break
+    if skip: continue
 
     # ensure all droplets are included in 'all' group
     for tag in droplet['tags'] + ['all']:
