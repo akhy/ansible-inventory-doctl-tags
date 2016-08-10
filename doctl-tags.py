@@ -48,6 +48,10 @@ if only_tags: only_tags = only_tags.split()
 # }
 
 for droplet in droplets:
+    
+    # skip inactive droplets (creating, deleting, powered off, etc.)
+    if droplet['status'] != 'active':
+        continue
 
     # if using DOCTL_INVENTORY_NAMESPACE, reject droplets whose names don't
     # start with '<NAMESPACE>-'
