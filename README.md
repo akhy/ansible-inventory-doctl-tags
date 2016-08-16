@@ -14,7 +14,7 @@ As with any other dynamic inventory script, just copy `doctl-tags.py` into your
 `inventory` directory, wherever that may be.
 
 You'll need doctl authorised with a personal access token before running your
-playbooks (`doctl auth login`).
+playbooks (`doctl auth login`) or [see below](#specify-an-api-token).
 
 
 ## Groups
@@ -23,6 +23,12 @@ Each droplet will be placed into groups named exactly as its tags.
 
 For example, if your droplet has tags `db` and `postgres`, it'll be placed into
 two groups named `db` and `postgres`. That's it.
+
+
+## Specify an API token
+
+If you don't want to use the token specified with `doctl auth login`, set the
+`DOCTL_INVENTORY_API_TOKEN` environment variable.
 
 
 ## Blacklist or whitelist droplets by tag
