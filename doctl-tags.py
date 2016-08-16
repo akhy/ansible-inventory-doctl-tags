@@ -10,18 +10,20 @@ def droplet_ip(droplet):
         if interface['type'] == 'public':
             return interface['ip_address']
 
+commands = [
+    'doctl',
+    'compute',
+    'droplet',
+    'list',
+    '--output',
+    'json',
+]
 
-# decode output from `doctl compute droplet list --output json`
-droplets = json.loads(
-    subprocess.check_output([
-        'doctl',
-        'compute',
-        'droplet',
-        'list',
-        '--output',
-        'json',
-    ])
-)
+key = os.environ.get('DOCTL_INVENTORY_API_TOKEN')
+if key: commands += ['--access-token', key]
+
+# decode output from doctl
+droplets = json.loads(subprocess.check_output(commands))
 
 
 # prepare the extraction*
@@ -48,7 +50,7 @@ if only_tags: only_tags = only_tags.split()
 # }
 
 for droplet in droplets:
-    
+
     # skip inactive droplets (creating, deleting, powered off, etc.)
     if droplet['status'] != 'active':
         continue
