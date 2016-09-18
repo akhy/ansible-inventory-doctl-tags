@@ -4,11 +4,14 @@ import os
 import subprocess
 import json
 
-# helper: get public IPv4 of droplet
-def droplet_ip(droplet):
-    for interface in droplet['networks']['v4']:
-        if interface['type'] == 'public':
-            return interface['ip_address']
+# helper: get public IPv4 (or name, if specified) of droplet
+def droplet_identifier(droplet):
+    if not output_names:
+        for interface in droplet['networks']['v4']:
+            if interface['type'] == 'public':
+                return interface['ip_address']
+    else:
+        return droplet['name']
 
 commands = [
     'doctl',
@@ -35,6 +38,9 @@ ignore_tags = os.environ.get('DOCTL_INVENTORY_IGNORE_TAGS', [])
 only_tags = os.environ.get('DOCTL_INVENTORY_ONLY_TAGS', [])
 if ignore_tags: ignore_tags = ignore_tags.split()
 if only_tags: only_tags = only_tags.split()
+
+output_names = os.environ.get('DOCTL_INVENTORY_OUTPUT_NAMES')
+output_names = (output_names != '0') and (output_names != None)
 
 # Ansible is expecting JSON input in the following format:
 # {
@@ -78,11 +84,11 @@ for droplet in droplets:
     for tag in droplet['tags'] + ['all']:
         if groups.get(tag):
             # group already exists, append IP
-            groups[tag]['hosts'].append(droplet_ip(droplet))
+            groups[tag]['hosts'].append(droplet_identifier(droplet))
         else:
             # group doesn't exist, create it and add this droplet's IP to it
             groups[tag] = {}
-            groups[tag]['hosts'] = [droplet_ip(droplet)]
+            groups[tag]['hosts'] = [droplet_identifier(droplet)]
             groups[tag]['vars'] = {}
 
 
