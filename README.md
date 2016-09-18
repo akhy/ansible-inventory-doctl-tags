@@ -38,6 +38,12 @@ You can specify a space-delimited list of tags to the
 variables respectively.
 
 
+## Output droplet names
+
+In order to output droplet names instead of IPs, you'll need to set
+`DOCTL_INVENTORY_OUTPUT_NAMES`.
+
+
 ## Note on usage with dobro
 
 If your DigitalOcean account has droplets that weren't created under the dobro
